@@ -33,8 +33,6 @@ SECRET_KEY = env('SECRET_KEY')
 #DEBUG = True
 DEBUG = env('DEBUG')
 
-print('SECRET_KEY', SECRET_KEY)
-print('DEBUG', DEBUG)
 
 ALLOWED_HOSTS = []
 

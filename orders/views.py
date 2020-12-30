@@ -13,11 +13,9 @@ def create_order_view(request):
         status='pending',
         order_date=datetime.datetime.now(),
     )
-    print('order id: ', order.id)
     order.save()
     total = 0
     for selected_product in body['products']:
-        print(selected_product)
         product = Product.objects.get(id=selected_product['id'])
         OrderItem.objects.bulk_create([
             OrderItem(
@@ -28,8 +26,6 @@ def create_order_view(request):
             )
         ])
         total = total + (product.price * selected_product['quantity'])
-
-    print('total', total)
 
     invoice = Invoice(
         statsus='pending',
