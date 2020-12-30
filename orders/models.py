@@ -3,7 +3,7 @@ from products.models import Product
 
 
 class Order(models.Model):
-    total = models.IntegerField()
+    total = models.IntegerField(null=True, blank=True)
     status = models.CharField(max_length=250)
     order_date = models.DateTimeField()
 
@@ -12,7 +12,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE)
     cost = models.IntegerField()
     quantity = models.IntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -22,14 +23,25 @@ class OrderItem(models.Model):
 
 
 class Invoice(models.Model):
-    invoice_number = models.IntegerField()
+    def __str__(self):
+        pass
+
+    def increment_invoice_number():
+        last_invoice = Invoice.objects.all().order_by('id').last()
+        if not last_invoice:
+            return 'MAG0001'
+        invoice_no = last_invoice.invoice_no
+        invoice_int = int(invoice_no.split('MAG')[-1])
+        new_invoice_int = invoice_int + 1
+        new_invoice_no = 'MAG' + str(new_invoice_int)
+        return new_invoice_no
+
+    invoice_no = models.CharField(
+        max_length=500, default=increment_invoice_number, null=True, blank=True)
     statsus = models.CharField(max_length=250)
     period_start_date = models.DateField()
     period_end_date = models.DateField()
     invoice_date = models.DateTimeField()
-
-    def __str__(self):
-        pass
 
 
 class InvoiceOrder(models.Model):

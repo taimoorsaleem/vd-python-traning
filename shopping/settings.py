@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import environ
+env = environ.Env()
+base = environ.Path(__file__) - 2
+# reading .env file
+environ.Env.read_env(env_file=base('.env'))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*dwp+#p+d$dsex#*4^)btzet@6mz5b@ax6l8u8c-s#zps0)rni'
+#SECRET_KEY = '*dwp+#p+d$dsex#*4^)btzet@6mz5b@ax6l8u8c-s#zps0)rni'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = env('DEBUG')
+
+print('SECRET_KEY', SECRET_KEY)
+print('DEBUG', DEBUG)
 
 ALLOWED_HOSTS = []
 
@@ -46,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -83,14 +94,13 @@ DATABASES = {
     # }
         'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbtest', 
-        'USER': 'admin', 
-        'PASSWORD': 'secret',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+        'NAME': env('DBNAME'), 
+        'USER': env('USERNAME'), 
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'), 
+        'PORT': env('PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
