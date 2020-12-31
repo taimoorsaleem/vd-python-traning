@@ -28,7 +28,7 @@ def create_order_view(request):
         total = total + (product.price * selected_product['quantity'])
 
     invoice = Invoice(
-        statsus='pending',
+        status='pending',
         period_start_date=datetime.date.today(),
         period_end_date=datetime.date.today() + datetime.timedelta(days=7),
         invoice_date=datetime.datetime.now(),

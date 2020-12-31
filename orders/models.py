@@ -38,7 +38,7 @@ class Invoice(models.Model):
 
     invoice_no = models.CharField(
         max_length=500, default=increment_invoice_number, null=True, blank=True)
-    statsus = models.CharField(max_length=250)
+    status = models.CharField(max_length=250)
     period_start_date = models.DateField()
     period_end_date = models.DateField()
     invoice_date = models.DateTimeField()
