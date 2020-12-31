@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 from products.models import Product
 
 
@@ -6,6 +7,10 @@ class Order(models.Model):
     total = models.IntegerField(null=True, blank=True)
     status = models.CharField(max_length=250)
     order_date = models.DateTimeField()
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    phone = PhoneNumberField(null=True, blank=True)
+    name = models.CharField(max_length=250,  null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
 
     def __str__(self):
         pass
@@ -38,7 +43,7 @@ class Invoice(models.Model):
 
     invoice_no = models.CharField(
         max_length=500, default=increment_invoice_number, null=True, blank=True)
-    statsus = models.CharField(max_length=250)
+    status = models.CharField(max_length=250)
     period_start_date = models.DateField()
     period_end_date = models.DateField()
     invoice_date = models.DateTimeField()
