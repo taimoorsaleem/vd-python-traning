@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from catalogue.models import Product
 from .models import Category, Product
 
 
